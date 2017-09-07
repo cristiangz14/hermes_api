@@ -18,6 +18,8 @@
     "good-console": "^6.4.0",
     "good-squeeze": "^5.0.2",
     "hapi": "^16.5.2",
-    "inert": "^4.2.1"
+    "hapi-auth-jwt2": "^7.3.0",
+    "inert": "^4.2.1",
+    "jwks-rsa": "^1.2.0"
   }
 }
