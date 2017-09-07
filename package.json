@@ -20,6 +20,8 @@
     "hapi": "^16.5.2",
     "hapi-auth-jwt2": "^7.3.0",
     "inert": "^4.2.1",
-    "jwks-rsa": "^1.2.0"
+    "joi": "^10.6.0",
+    "jwks-rsa": "^1.2.0",
+    "zendesk-node-api": "^1.2.0"
   }
 }
