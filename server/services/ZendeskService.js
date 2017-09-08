@@ -18,9 +18,13 @@ class ZendeskService {
         return agents && agents.length && agents[0].id ? agents[0].id : null;
       })
       .then(function(agentId) {
+        if(agentId) {
+          return agentId;
+        }
+
         return self.createAgent(ticket.submitter.name, ticket.submitter.email)
           .then(function(agent) {
-            return agent.id;
+            return agent.user.id;
           });
       })
       .then(function(agentId) {
@@ -46,7 +50,7 @@ class ZendeskService {
 
   searchAgent(email) {
     return this.api.search
-      .list(`query=type:user "${email}" role:agent`);
+      .list(`query=type:user "${email}"`);
   }
 }
 
