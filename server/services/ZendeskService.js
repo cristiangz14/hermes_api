@@ -24,7 +24,7 @@ class ZendeskService {
 
         return self.createAgent(ticket.submitter.name, ticket.submitter.email)
           .then(function(agent) {
-            return agent.user.id;
+            return agent && agent.user && agent.user.id ? agent.user.id : null;
           });
       })
       .then(function(agentId) {

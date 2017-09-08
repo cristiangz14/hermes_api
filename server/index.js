@@ -71,6 +71,8 @@ server.register(plugins, (err) => {
           zendeskService.createTicket(ticket)
           .then(function(ticket){
             reply({message: 'The Ticket has been created successfully'});
+          }).catch(function(err){
+            reply(err).code(400);
           });
         },
       }
