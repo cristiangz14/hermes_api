@@ -2,16 +2,28 @@
   "name": "hermes_api",
   "version": "1.0.0",
   "description": "API for hermes project",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "start": "node server"
+  },
+  "engines": {
+    "node": "6.11.1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cristiangz14/hermes_api"
   },
-  "author": "Cristian Granada",
-  "license": "ISC",
+  "keywords": [
+    "zendesk",
+    "auth0",
+    "api"
+  ],
+  "author": "Cristian Granada <cristiangranada14@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cristiangz14/hermes_api/issues"
+  },
+  "homepage": "https://github.com/cristiangz14/hermes_api#readme",
   "dependencies": {
     "dotenv": "^4.0.0",
     "good": "^7.3.0",
