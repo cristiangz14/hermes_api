@@ -44,7 +44,7 @@ server.register(plugins, (err) => {
           scope: 'create:tickets'
         },
         validate: {
-          params: Joi.object().keys({
+          payload: Joi.object().keys({
             subject: Joi.string(),
             description: Joi.string(),
             severity: Joi.string(),
@@ -72,7 +72,7 @@ server.register(plugins, (err) => {
           .then(function(ticket){
             reply({message: 'The Ticket has been created successfully'});
           }).catch(function(err){
-            reply(err).code(400);
+            reply({message: err.message}).code(400);
           });
         },
       }
