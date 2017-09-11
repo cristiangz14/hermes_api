@@ -43,7 +43,7 @@ server.register(plugins, (err) => {
         auth: {
           scope: 'create:tickets'
         },
-        validate: {
+        /*validate: {
           payload: Joi.object().keys({
             subject: Joi.string(),
             description: Joi.string(),
@@ -57,9 +57,10 @@ server.register(plugins, (err) => {
               email: Joi.string().email(),
             })
           })
-        },
+        },*/
         handler(request, reply) {
           const payload = request.payload;
+          console.log(payload.requestedBy)
           const ticket = {
             subject: payload.subject,
             priority: payload.severity,
