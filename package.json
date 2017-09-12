@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/cristiangz14/hermes_api#readme",
   "dependencies": {
+    "auth0-js": "^8.9.3",
     "dotenv": "^4.0.0",
     "good": "^7.3.0",
     "good-console": "^6.4.0",

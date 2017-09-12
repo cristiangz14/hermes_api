@@ -4,11 +4,16 @@ const Hapi = require('hapi');
 const jwt = require('hapi-auth-jwt2');
 const jwksRsa = require('jwks-rsa');
 const validateUser = require('./config/validateUser');
-const Joi = require('joi');
 const ZendeskService = require('./services/ZendeskService');
-
+const auth0 = require('auth0-js');
+const ticketRoutes = require('./routes/tickets');
 const zendeskService = new ZendeskService();
 const server = new Hapi.Server();
+
+const webAuth = new auth0.WebAuth({
+  domain: env.AUTH_DOMAIN,
+  clientID: env.AUTH_CLIENT_ID
+});
 
 server.connection({ port: env.PORT, host: env.HOST });
 
@@ -36,48 +41,7 @@ server.register(plugins, (err) => {
       validateFunc: validateUser
     });
 
-    server.route({
-      method: 'POST',
-      path: '/api/tickets',
-      config: {
-        auth: {
-          scope: 'create:tickets'
-        },
-        /*validate: {
-          payload: Joi.object().keys({
-            subject: Joi.string(),
-            description: Joi.string(),
-            severity: Joi.string(),
-            requestedBy: Joi.object().keys({
-              name: Joi.string(),
-              email: Joi.string().email(),
-            }),
-            submittedBy: Joi.object().keys({
-              name: Joi.string(),
-              email: Joi.string().email(),
-            })
-          })
-        },*/
-        handler(request, reply) {
-          const payload = request.payload;
-          console.log(payload.requestedBy)
-          const ticket = {
-            subject: payload.subject,
-            priority: payload.severity,
-            comment: payload.description,
-            requester: payload.requestedBy,
-            submitter: payload.submittedBy
-          }
-
-          zendeskService.createTicket(ticket)
-          .then(function(ticket){
-            reply({message: 'The Ticket has been created successfully'});
-          }).catch(function(err){
-            reply({message: err.message}).code(400);
-          });
-        },
-      }
-    });
+    server.route(ticketRoutes.post({webAuth, zendeskService}));
 
     server.start((err) => {
         if (err) {
